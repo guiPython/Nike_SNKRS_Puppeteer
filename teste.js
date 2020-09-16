@@ -37,7 +37,7 @@ async function run () {
 
 
     await login('guirox.wd@gmail.com','Lask1234' , page)
-    cron.schedule('32 22 * * *', async () => {
+    cron.schedule('07 18 * * *', async () => {
         await set_product('DBreak-Type/153-169-211-256298' , '42' , page);
 
         // Iniciar Compra
@@ -47,11 +47,14 @@ async function run () {
         // Confirmar Endereco 
         await page.waitForNavigation({waitUntil:'networkidle0'})
         await page.click('#seguir-pagamento')
-        await page.waitForNavigation({waitUntil:'networkidle0'})
-
+        await page.waitForSelector('body > div.modal-backdrop.fade.show')
+        await page.evaluate( () => { 
+            const id_modal = document.getElementsByClassName('modal fade ModalCorpoCentralizado show')
+            console.log(id_modal)
+            console.log(id_modal[0].id)
+        })
         // Confirmar envio
         // TODO modal confirmar envio
-        await page.waitForNavigation({waitUntil:'networkidle0'})
         await page.screenshot({path:'confirm_address.png'})
 
 
