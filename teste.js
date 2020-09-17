@@ -1,5 +1,8 @@
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-extra');
+const pluginStealth = require('puppeteer-extra-plugin-stealth')
 const cron = require('node-cron')
+
+puppeteer.use(pluginStealth())
 
 async function login( email , senha , page ){
     await page.click('#anchor-acessar')
@@ -8,6 +11,7 @@ async function login( email , senha , page ){
     await page.waitForTimeout(200)
     await page.type('input[name="password"',senha,{delay:200})
     await page.screenshot({path:'login_page.png'})
+    await page.waitForTimeout(5000)
     await page.keyboard.press('Enter')
 }
 
@@ -26,7 +30,7 @@ async function confirm_address( page ){
 
 async function run () {
 
-    const browser = await puppeteer.launch({headless:false})
+    const browser = await puppeteer.launch({ headless:false , ignoreHTTPSErrors:true  , args: ['--disable-web-security',]})
     const page = await browser.newPage()
     page.setDefaultNavigationTimeout(0)
     await page.setViewport({ width:1280 , height:720})
@@ -37,7 +41,7 @@ async function run () {
 
 
     await login('guirox.wd@gmail.com','Lask1234' , page)
-    cron.schedule('07 18 * * *', async () => {
+    cron.schedule('08 20 * * *', async () => {
         await set_product('DBreak-Type/153-169-211-256298' , '42' , page);
 
         // Iniciar Compra
@@ -48,11 +52,10 @@ async function run () {
         await page.waitForNavigation({waitUntil:'networkidle0'})
         await page.click('#seguir-pagamento')
         await page.waitForSelector('body > div.modal-backdrop.fade.show')
-        await page.evaluate( () => { 
-            const id_modal = document.getElementsByClassName('modal fade ModalCorpoCentralizado show')
-            console.log(id_modal)
-            console.log(id_modal[0].id)
-        })
+        //document.getElementsByClassName('modal fade ModalCorpoCentralizado show')
+        // Click Confirmar Endereco 
+        await page.evaluate( () =>  document.querySelector('button.button.undefined').click() )
+
         // Confirmar envio
         // TODO modal confirmar envio
         await page.screenshot({path:'confirm_address.png'})
