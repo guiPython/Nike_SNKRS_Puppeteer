@@ -30,18 +30,18 @@ async function confirm_address( page ){
 
 async function run () {
 
-    const browser = await puppeteer.launch({ headless:false , ignoreHTTPSErrors:true  , args: ['--disable-web-security',]})
+    const browser = await puppeteer.launch({ headless:false , ignoreHTTPSErrors:true  ,})
     const page = await browser.newPage()
     page.setDefaultNavigationTimeout(0)
     await page.setViewport({ width:1280 , height:720})
 
 
-    await page.goto('https://www.nike.com.br/Snkrs')
+    await page.goto('https://www.nike.com.br')
     await page.screenshot({path: 'home_page.png'})
 
 
-    await login('guirox.wd@gmail.com','Lask1234' , page)
-    cron.schedule('08 20 * * *', async () => {
+    await login('email','senha' , page)
+    cron.schedule('28 13 * * *', async () => {
         await set_product('DBreak-Type/153-169-211-256298' , '42' , page);
 
         // Iniciar Compra
@@ -52,11 +52,12 @@ async function run () {
         await page.waitForNavigation({waitUntil:'networkidle0'})
         await page.click('#seguir-pagamento')
         await page.waitForSelector('body > div.modal-backdrop.fade.show')
-        //document.getElementsByClassName('modal fade ModalCorpoCentralizado show')
-        // Click Confirmar Endereco 
-        await page.evaluate( () =>  document.querySelector('button.button.undefined').click() )
-
-        // Confirmar envio
+        document.getElementsByClassName('modal fade ModalCorpoCentralizado show')
+        // Click Confirmar Endereco
+        await page.evaluate( () => {document.querySelector(
+            `${document.getElementsByClassName('modal fade ModalCorpoCentralizado show')[0].id} > div > div > div.modal-footer.modal-footer--botao-vertical > button:nth-child(1)`).click()})
+        
+        // Confirmar envio}
         // TODO modal confirmar envio
         await page.screenshot({path:'confirm_address.png'})
 
