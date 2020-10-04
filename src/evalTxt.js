@@ -3,7 +3,7 @@ const fs = require('fs')
 
 function infotxt(){
     try{
-        var data = fs.readFileSync(path.resolve(process.cwd(),'info.txt'),'utf8')
+        var data = fs.readFileSync(path.resolve(process.cwd(),'inform.txt'),'utf8')
         const lines = data.split(/\r?\n/)
         for (var i = 0 ; i < lines.length ; i++ ){ if ( i != lines.length -1) {lines[i] = lines[i].split(':')[1] } else{ lines[i] = lines[i].split('path_chrome:')[1]}}
         return lines
