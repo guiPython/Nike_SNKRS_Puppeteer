@@ -1,6 +1,6 @@
 /node_modules
 /Comprovantes/
+/build
 *.png
 *.txt
-teste.js
-txtTeste.js
+TarsNike.js

@@ -10,8 +10,12 @@
   "license": "ISC",
   "dependencies": {
     "node-cron": "^2.0.3",
-    "puppeteer": "^5.3.0",
+    "puppeteer": "^5.3.1",
+    "puppeteer-core": "^5.3.1",
     "puppeteer-extra": "^3.1.15",
     "puppeteer-extra-plugin-stealth": "^2.6.1"
+  },
+  "pkg":{
+    "assets":"aux.js"
   }
 }
