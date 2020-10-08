@@ -9,13 +9,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cli-spinner": "^0.2.10",
     "node-cron": "^2.0.3",
     "puppeteer": "^5.3.1",
     "puppeteer-core": "^5.3.1",
     "puppeteer-extra": "^3.1.15",
     "puppeteer-extra-plugin-stealth": "^2.6.1"
   },
-  "pkg":{
-    "assets":"aux.js"
+  "pkg": {
+    "assets": "/src/*"
   }
 }
