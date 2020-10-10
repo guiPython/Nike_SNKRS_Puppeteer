@@ -4,7 +4,6 @@ const rs = readeline.createInterface(process.stdin,process.stdout)
 const path = require('path')
 const fs = require('fs')
 const retry = require('./retry')
-//TODO Retry em compra de tenis , procedimento escolha de produto
 
 async function mkDirOrder(cpf,model){
         // Pasta Comprovante do pedido
