@@ -25,7 +25,7 @@ async function run () {
             const [ product , id , size ] = [ process.env.MODEL , process.env.ID , process.env.SIZE ] 
             
             
-            const browser = await puppeteer.launch({ defaultViewport:null ,headless:true , ignoreHTTPSErrors:true , executablePath:`${process.env.PATH_CHROME}` , args: ['--no-sandbox']})
+            const browser = await puppeteer.launch({ defaultViewport:null ,headless:false , ignoreHTTPSErrors:true , executablePath:`${process.env.PATH_CHROME}` , args: ['--no-sandbox']})
             const page = await browser.newPage()
             await page.setViewport({ width:1920 , height:1080})
             page.setDefaultNavigationTimeout(0)
@@ -37,12 +37,12 @@ async function run () {
             //await page.screenshot({path: `${path_folder}/home_page.png`})
 
             // Login
-            var access = await login( process.env.EMAIL , process.env.PASSWORD , page , path_folder )
+            var access = await login( process.env.EMAIL , process.env.PASSWORD , page , path_folder , process.env.TIME_OUT)
             // Order
             if ( access == null ? true : false ){
                 if ( Date.now() < date ){ 
-                    cron.schedule(`${timeL[1]} ${timeL[0]} * * *`, async () => { await Order.init_Order( page , path_folder , product , id , size , browser ) })}
-                else { await Order.initOrder( page , path_folder , product , id , size , browser ) }}
+                    cron.schedule(`${timeL[1]} ${timeL[0]} * * *`, async () => { await Order.init_Order( page , path_folder , product , id , size , browser , process.env.TIME_OUT) })}
+                else { await Order.initOrder( page , path_folder , product , id , size , browser ,  process.env.TIME_OUT) }}
             
         }
         catch(err){

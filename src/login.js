@@ -4,7 +4,7 @@ const retry = require('./retry')
 const readLine = require('readline');
 const rs = readLine.createInterface(process.stdin,process.stdout)
 
-async function login( email , senha , page , path_folder ){
+async function login( email , senha , page , path_folder , timeOut){
     console.log()
     var spinner = new Spinner('Login: processing.. %s');
     spinner.setSpinnerString('|/-\\');
@@ -20,9 +20,9 @@ async function login( email , senha , page , path_folder ){
             await page.screenshot({path: `${path_folder}/login_page.png` }),
             await page.waitForTimeout(200),
             await page.keyboard.press('Enter'),
-            page.setDefaultNavigationTimeout(30000),
+            page.setDefaultNavigationTimeout(timeOut + 5000),
             await page.waitForNavigation({waitUntil:'networkidle2'}),
-            page.setDefaultNavigationTimeout(20000),
+            page.setDefaultNavigationTimeout(timeOut),
             await page.waitForXPath('//*[@id="header"]/div[1]/div/div/div[2]/span[1]/span[1]/span/a')
         ])},3)}
     catch{

@@ -11,7 +11,7 @@ async function mkDirOrder(cpf,model){
         return await fs.promises.access(dir).then(() => {return dir}).catch( async () => {await fs.promises.mkdir(dir,{recursive: true}) ;  return dir })
 }
 
-async function initOrder( page , path_folder , product , id , size , browser ){
+async function initOrder( page , path_folder , product , id , size , browser , timeOut){
 
         console.log()
         var spinner = new Spinner('Page Loading: processing.. %s');
@@ -30,7 +30,7 @@ async function initOrder( page , path_folder , product , id , size , browser ){
         spinner.setSpinnerString('|/-\\')
         spinner.start()
         try { await retry ( async () => { Promise.all([
-                page.setDefaultNavigationTimeout(10000),
+                page.setDefaultNavigationTimeout(timeOut + 2000),
                 await page.screenshot({path: `${path_folder}/set_product_page.png`  }),
                 await page.click('#btn-comprar'),]) , 3})}
         catch{ spinner.stop() ; console.log('\n NOT Selected Product.') ; return rs.question('\nPress Enter to close the Application.',async ()=>{await browser.close() ; process.exit()}) }
