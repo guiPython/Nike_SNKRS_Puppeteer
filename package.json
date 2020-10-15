@@ -4,7 +4,7 @@
   "description": "Bot Nike SNKRS",
   "main": "index.js",
   "scripts": {
-    "build":"nexe",
+    "build": "nexe",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -16,9 +16,13 @@
     "puppeteer": "^5.3.1",
     "puppeteer-core": "^5.3.1",
     "puppeteer-extra": "^3.1.15",
+    "puppeteer-extra-plugin-adblocker": "^2.11.6",
     "puppeteer-extra-plugin-stealth": "^2.6.1"
   },
   "pkg": {
-    "assets": ["/src/*","node_modules/puppeteer-extra-plugin-stealth/**/*.*"]
+    "assets": [
+      "/src/*",
+      "node_modules/puppeteer-extra-plugin-stealth/**/*.*"
+    ]
   }
 }

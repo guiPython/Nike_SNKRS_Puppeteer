@@ -43,7 +43,7 @@ async function initOrder( page , path_folder , product , id , size , browser , t
         spinner.setSpinnerString('|/-\\')
         spinner.start()
         page.setDefaultNavigationTimeout(0)
-        await page.waitForNavigation({waitUntil:'domcontentloaded'})
+        await page.waitForNavigation({waitUntil:'networkidle2'})
         await page.click('#carrinho > div.ckt__bg-full > div > div:nth-child(4) > a')
         console.time('\nThe entire purchase process was completed in: ')
         spinner.stop()
@@ -58,7 +58,7 @@ async function initOrder( page , path_folder , product , id , size , browser , t
         await page.click('#seguir-pagamento')
         await page.waitForSelector('body > div.modal-backdrop.fade.show')
         await page.waitForSelector('div[id^="modalNotice_"',{visible:true})
-        await page.waitForTimeout(500)
+        await page.waitForTimeout(400)
         await page.evaluate( () => document.querySelector('button.button.undefined').click() )
         spinner.stop()
         console.log('\nConfirmed Address')
@@ -88,7 +88,7 @@ async function initOrder( page , path_folder , product , id , size , browser , t
         setTimeout( () => {
                 spinner.stop()
                 console.log(`\nSuccessful Buy \nCheck the folder: ${path_folder}`)
-                rs.question('\nPress Enter to close the Application.',async ()=>{await browser.close() ; process.exit()}),10000 })
+                rs.question('\nPress Enter to close the Application.',()=>{process.exit()}),10000 })
         
 }
 

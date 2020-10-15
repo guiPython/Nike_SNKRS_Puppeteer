@@ -1,8 +1,8 @@
 const puppeteer = require('puppeteer-extra');
-puppeteer.use(require('puppeteer-extra-plugin-stealth')())
+puppeteer.use(require('puppeteer-extra-plugin-stealth')());
 const cron = require('node-cron');
 const readLine = require('readline');
-const rs = readLine.createInterface(process.stdin,process.stdout)
+const rs = readLine.createInterface(process.stdin,process.stdout);
 require('dotenv').config()
 
 
@@ -31,10 +31,9 @@ async function run () {
             page.setDefaultNavigationTimeout(0)
             await page.setRequestInterception(true);
             page.on('request', (request) => {
-                if (request.resourceType() === 'image') request.abort();
+                if (request.resourceType() === 'image' || request.resourceType() === 'font') request.abort();
                 else request.continue();
             });
-            //await page.screenshot({path: `${path_folder}/home_page.png`})
 
             // Login
             var access = await login( process.env.EMAIL , process.env.PASSWORD , page , path_folder , process.env.TIME_OUT)
