@@ -6,6 +6,7 @@ const rs = readLine.createInterface(process.stdin,process.stdout)
 
 async function login( email , senha , page , path_folder , timeOut){
     console.log()
+    page.setDefaultNavigationTimeout(20000);
     var spinner = new Spinner('Login: processing.. %s');
     spinner.setSpinnerString('|/-\\');
     spinner.start();
