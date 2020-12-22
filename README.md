@@ -26,6 +26,13 @@ Recomendo escolher o S.O com a versao 12.16.3 do node js.
           
           nexe -t windows-x64-12.16.3  -o ./Build/Bot_Nike
           
-*Importante: Para que o programa funcione corretamente insira na pasta Build criada a partir do metodo II o arquivo .env*
+*Importante:*
+
+          I) Para que o programa funcione corretamente insira na pasta Build criada a partir do metodo II o arquivo .env
+          
+          II) Algumas correcoes podem ser feitas nos metodos da pasta src caso tenha problemas de conexao.
+          
+          III) Em alguns testes reparei que o bloqueio nas requisicoes das imagens nao funcionou muito bem ,
+               e uma configuracao opcional , portanto caso deseje retire a linha no arquivo index.js que bloqueia img.
       
 Meus agradecimentos , facam bom uso :)
